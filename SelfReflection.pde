@@ -1,7 +1,7 @@
 // Created 2015.05.05
-// by William Ismael / WILLPOWER STUDIOS
-// Open Source Software
-// If you use my code give me full credit on my work by mentioning my name + website #BusinessEthics #Respect 
+// by William Ismael for WILLPOWER STUDIOS
+// Creative Commons License 
+// If you use my code give me full credit on my work by mentioning my name + website #BusinessEthics #Respect #Honor 
 // If you add cool stuff to it please share it with me :)
  
 
@@ -19,9 +19,8 @@ import processing.pdf.*;
 ////////////////////
 
 
-// Minim is not being used at this moment
-// Minim minim;
-// AudioInput in;
+Minim minim;
+AudioInput in;
 
 
 float howBig,strokeOpacity;
@@ -31,23 +30,21 @@ Capture cam;
 
 boolean record;
 
-PImage WillpowerIdentity;
-
 
 ////////////////////
 
 void setup() {
-  size( 1440,850 ); 
+  //size( 1440,850 );
+  size(displayWidth, displayHeight); 
   background( 0 );
   smooth();
   colorMode(RGB, 255, 255, 255, 100);
 
   String[] cameras = Capture.list();
 
-  // Minim is not being used at this moment
-  //minim = new Minim(this);
+   minim = new Minim(this);
   // use the getLineIn method of the Minim object to get an AudioInput
-  //in = minim.getLineIn();
+  in = minim.getLineIn();
   
   if (cameras.length == 0) {
     println("There are no cameras available for capture.");
@@ -58,21 +55,20 @@ void setup() {
       println(cameras[i]);
     }
     
-    // Detecting MacBook Pro's camera
+    // Laptop Camera
     cam = new Capture(this, cameras[0]);
-    // Using USB Logitech webcam
+    // Logitech USB camera
     //cam = new Capture( this, 1440, 900, "Logitech Camera", 30);
     cam.start();     
   }      
 
   //cursor(CROSS);
-
-  WillpowerIdentity = loadImage("WILLPOWER-STUDIOS-logo.png");
 }
 
 void draw() {
 
   if (record) {
+    // Note that #### will be replaced with the frame number. Fancy!
     beginRecord(PDF, "frame-####.pdf"); 
   }
 
@@ -83,8 +79,11 @@ void draw() {
        // Look up the RGB color in the source image
       cam.loadPixels();
 
-   // Mic > Not In Use 
-   //float sound = in.mix.level () * random( 50 );
+
+   // Mic 
+   float sound = in.mix.level () * random( 50 );
+
+
 
 
    for (int   i = 0; i < 1500; i+=36) {
@@ -110,6 +109,8 @@ void draw() {
 
     }
   }
+
+
 
       if ( key=='1' ) {
 
@@ -184,6 +185,7 @@ if ( key=='3' ) {
     }
   }
 
+
     if ( key=='4' ) {
 
         for (int   i = 0; i < 1500; i+=54) {
@@ -232,6 +234,7 @@ if ( key=='3' ) {
       }
     }
   }
+
 
   if ( key=='5' ) {
 
@@ -303,6 +306,7 @@ if ( key=='3' ) {
     }
   }
 
+
   if ( key=='6' ) {
 
         for (int   i = 0; i < 1500; i+=36) {
@@ -324,6 +328,7 @@ if ( key=='3' ) {
       }
     }
   }
+
 
   if ( key=='7' ) {
 
@@ -425,17 +430,15 @@ if ( key=='3' ) {
 
   }
 
-  imageMode(CENTER);
-  //scale( .5 );
-  image( WillpowerIdentity,width/2,height-190,172,200);
-
    if (record) {
       endRecord();
       record = false;
     }
+
 }
 
 // Generate Vector Art
 void mousePressed() {
   record = true;
 }
+
